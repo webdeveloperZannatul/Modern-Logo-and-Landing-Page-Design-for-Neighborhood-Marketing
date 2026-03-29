@@ -1,0 +1,2 @@
+# Modern-Logo-and-Landing-Page-Design-for-Neighborhood-Marketing
+I designed a modern logo and landingpage for NeighborhoodMarketing using a structured UI/UX approach to ensure strong visual hierarchy,clear calls-to-action and seamless navigation that maximizes user engagement and conversions.The overall design aligns with modern SaaS standards,incorporating vibrant gradients,clean layouts and consistent branding
