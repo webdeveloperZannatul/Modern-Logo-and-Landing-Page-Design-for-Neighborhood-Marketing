@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeighborhoodMarketing.ai - Hyper-Local Marketing Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            border: 2px solid #667eea;
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .hero-pattern {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.95);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(0.95);
+                opacity: 1;
+            }
+        }
+        
+        .pulse-ring {
+            animation: pulse-ring 2s ease-in-out infinite;
+        }
+        
+        .radius-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px dashed #667eea;
+            opacity: 0.3;
+        }
+        
+        .map-pin {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            left: 50%;
+            top: 50%;
+            margin: -40px 0 0 -20px;
+        }
+        
+        .map-pin::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .section-spacing {
+            padding: 100px 0;
+        }
+        
+        .navbar-blur {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        @media (max-width: 768px) {
+            .section-spacing {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Header/Navigation -->
+    <nav class="fixed w-full top-0 z-50 navbar-blur shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <img src="https://i.postimg.cc/JnBqV6tJ/logo6-1g-removebg-preview.png" alt="NeighborhoodMarketing.ai" class="h-12">
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-700 hover:text-purple-600 font-medium transition">Features</a>
+                    <a href="#how-it-works" class="text-gray-700 hover:text-purple-600 font-medium transition">How It Works</a>
+                    <a href="#benefits" class="text-gray-700 hover:text-purple-600 font-medium transition">Benefits</a>
+                    <a href="#testimonials" class="text-gray-700 hover:text-purple-600 font-medium transition">Testimonials</a>
+                    <a href="#contact" class="text-gray-700 hover:text-purple-600 font-medium transition">Contact</a>
+                    <button class="btn-primary text-white px-6 py-2.5 rounded-lg font-semibold">Get Started</button>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-gray-700">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 overflow-hidden hero-pattern">
+        <div class="absolute inset-0 opacity-20">
+            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1920&q=80" alt="Community" class="w-full h-full object-cover">
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-6">
+                        Reach Every Customer in Your <span class="gradient-text">Neighborhood</span>—Automatically
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        Dominate your local market with precision targeting within 0.5 miles. Multi-channel campaigns across SMS, calls, postcards, email, and social media—all automated.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="btn-primary text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg">
+                            Get Started Free
+                        </button>
+                        <button class="btn-secondary px-8 py-4 rounded-xl font-semibold text-lg bg-white">
+                            <i class="fas fa-play-circle mr-2"></i>See How It Works
+                        </button>
+                    </div>
+                    <div class="mt-12 flex items-center gap-8">
+                        <div>
+                            <div class="text-3xl font-bold gradient-text">150+</div>
+                            <div class="text-gray-600 text-sm">Local Businesses</div>
+                        </div>
+                        <div class="h-12 w-px bg-gray-300"></div>
+                        <div>
+                            <div class="text-3xl font-bold gradient-text">98%</div>
+                            <div class="text-gray-600 text-sm">Client Satisfaction</div>
+                        </div>
+                        <div class="h-12 w-px bg-gray-300"></div>
+                        <div>
+                            <div class="text-3xl font-bold gradient-text">2.5M+</div>
+                            <div class="text-gray-600 text-sm">Messages Sent</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="float-animation">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Marketing Dashboard" class="rounded-2xl shadow-2xl">
+                    </div>
+                    <div class="absolute -top-6 -right-6 bg-white rounded-xl shadow-lg p-4 pulse-ring">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-green-100 rounded-full p-3">
+                                <i class="fas fa-chart-line text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-gray-900">+247%</div>
+                                <div class="text-sm text-gray-600">Engagement Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-lg p-4">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-purple-100 rounded-full p-3">
+                                <i class="fas fa-bullseye text-purple-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-600 mb-1">Active Campaigns</div>
+                                <div class="text-2xl font-bold text-gray-900">24</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section-spacing bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">How It Works</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Launch hyper-local campaigns in 4 simple steps</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="relative">
+                    <div class="bg-white rounded-2xl p-8 card-hover shadow-lg h-full">
+                        <div class="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl w-16 h-16 flex items-center justify-center mb-6">
+                            <i class="fas fa-map-marker-alt text-white text-2xl"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 text-6xl font-bold text-purple-100">01</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Set Your Radius</h3>
+                        <p class="text-gray-600">Define your neighborhood targeting area within 0.5 miles for maximum precision.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="relative">
+                    <div class="bg-white rounded-2xl p-8 card-hover shadow-lg h-full">
+                        <div class="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl w-16 h-16 flex items-center justify-center mb-6">
+                            <i class="fas fa-sliders-h text-white text-2xl"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 text-6xl font-bold text-blue-100">02</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Choose Channels</h3>
+                        <p class="text-gray-600">Select from SMS, calls, postcards, email, and social media to reach customers.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="relative">
+                    <div class="bg-white rounded-2xl p-8 card-hover shadow-lg h-full">
+                        <div class="bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl w-16 h-16 flex items-center justify-center mb-6">
+                            <i class="fas fa-rocket text-white text-2xl"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 text-6xl font-bold text-pink-100">03</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Launch Campaign</h3>
+                        <p class="text-gray-600">Set it and forget it. Our AI automates your entire marketing workflow.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="relative">
+                    <div class="bg-white rounded-2xl p-8 card-hover shadow-lg h-full">
+                        <div class="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl w-16 h-16 flex items-center justify-center mb-6">
+                            <i class="fas fa-chart-bar text-white text-2xl"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 text-6xl font-bold text-green-100">04</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Track Performance</h3>
+                        <p class="text-gray-600">Monitor real-time analytics and optimize campaigns for better results.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section-spacing bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Multi-Channel Marketing Power</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Reach your neighborhood customers wherever they are with our comprehensive marketing suite</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- SMS Marketing -->
+                <div class="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-8 card-hover border border-purple-100">
+                    <div class="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl w-14 h-14 flex items-center justify-center mb-6">
+                        <i class="fas fa-sms text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">SMS Marketing</h3>
+                    <p class="text-gray-600 mb-4">Instant text messages with 98% open rates. Perfect for time-sensitive offers and updates.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-purple-600 mr-2"></i>
+                            <span>Automated campaigns</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-purple-600 mr-2"></i>
+                            <span>Personalized messaging</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-purple-600 mr-2"></i>
+                            <span>Two-way conversations</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Automated Calls -->
+                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 card-hover border border-blue-100">
+                    <div class="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl w-14 h-14 flex items-center justify-center mb-6">
+                        <i class="fas fa-phone-alt text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Automated Calls</h3>
+                    <p class="text-gray-600 mb-4">Voice broadcasts and interactive calls that engage customers personally.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-blue-600 mr-2"></i>
+                            <span>AI voice technology</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-blue-600 mr-2"></i>
+                            <span>Smart scheduling</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-blue-600 mr-2"></i>
+                            <span>Call analytics</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Direct Mail -->
+                <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-8 card-hover border border-pink-100">
+                    <div class="bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl w-14 h-14 flex items-center justify-center mb-6">
+                        <i class="fas fa-envelope text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Direct Mail Postcards</h3>
+                    <p class="text-gray-600 mb-4">Physical postcards that stand out and drive action in your neighborhood.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-pink-600 mr-2"></i>
+                            <span>Custom designs</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-pink-600 mr-2"></i>
+                            <span>Targeted delivery</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-pink-600 mr-2"></i>
+                            <span>QR code tracking</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Email Campaigns -->
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 card-hover border border-green-100">
+                    <div class="bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl w-14 h-14 flex items-center justify-center mb-6">
+                        <i class="fas fa-envelope-open-text text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Email Campaigns</h3>
+                    <p class="text-gray-600 mb-4">Beautiful, responsive emails that convert browsers into buyers.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span>Drag-and-drop builder</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span>A/B testing</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span>Advanced segmentation</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Social Media -->
+                <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-8 card-hover border border-orange-100">
+                    <div class="bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl w-14 h-14 flex items-center justify-center mb-6">
+                        <i class="fas fa-share-alt text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Social Media Targeting</h3>
+                    <p class="text-gray-600 mb-4">Hyper-local social ads that reach neighbors on their favorite platforms.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-orange-600 mr-2"></i>
+                            <span>Geo-fencing ads</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-orange-600 mr-2"></i>
+                            <span>Multi-platform posting</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-orange-600 mr-2"></i>
+                            <span>Engagement tracking</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Analytics -->
+                <div class="bg-gradient-to-br from-indigo-50 to-violet-50 rounded-2xl p-8 card-hover border border-indigo-100">
+                    <div class="bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl w-14 h-14 flex items-center justify-center mb-6">
+                        <i class="fas fa-analytics text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Advanced Analytics</h3>
+                    <p class="text-gray-600 mb-4">Real-time insights and reporting across all your marketing channels.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-indigo-600 mr-2"></i>
+                            <span>ROI tracking</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-indigo-600 mr-2"></i>
+                            <span>Customer journey maps</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-indigo-600 mr-2"></i>
+                            <span>Performance dashboards</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Section - Radius Targeting -->
+    <section class="section-spacing bg-gradient-to-br from-purple-50 to-indigo-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Precision Targeting Within 0.5 Miles</h2>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Our advanced geo-targeting technology ensures your marketing reaches the right people at the right time—your immediate neighbors who are most likely to become customers.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-purple-600 rounded-lg p-2 mt-1">
+                                <i class="fas fa-crosshairs text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Ultra-Precise Targeting</h4>
+                                <p class="text-gray-600">Target specific neighborhoods, streets, or even buildings within your service area.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-purple-600 rounded-lg p-2 mt-1">
+                                <i class="fas fa-dollar-sign text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Reduce Marketing Waste</h4>
+                                <p class="text-gray-600">Stop paying for ads outside your service area. Focus budget where it matters.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-purple-600 rounded-lg p-2 mt-1">
+                                <i class="fas fa-chart-line text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Higher Conversion Rates</h4>
+                                <p class="text-gray-600">Local customers are 3x more likely to convert than broader audiences.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="relative w-full h-96 bg-white rounded-2xl shadow-2xl overflow-hidden">
+                        <img alt="Map" src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&amp;fit=crop&amp;w=800&amp;q=80" style="width:584px; height: 410px;">
+                        <!-- <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80" alt="Map" class="w-full h-full object-cover opacity-30"> -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="relative">
+                                <div class="radius-circle" style="width: 300px; height: 300px;"></div>
+                                <div class="radius-circle pulse-ring" style="width: 200px; height: 200px; top: 50px; left: 50px;"></div>
+                                <div class="radius-circle" style="width: 100px; height: 100px; top: 100px; left: 100px; border-style: solid; border-color: #667eea; opacity: 0.6;"></div>
+                                <div class="map-pin"></div>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-6 left-6 bg-white rounded-lg shadow-lg p-4">
+                            <div class="text-sm text-gray-600 mb-1">Target Radius</div>
+                            <div class="text-2xl font-bold gradient-text">0.5 Miles</div>
+                        </div>
+                        <div class="absolute top-6 right-6 bg-white rounded-lg shadow-lg p-4">
+                            <div class="text-sm text-gray-600 mb-1">Potential Reach</div>
+                            <div class="text-2xl font-bold gradient-text">2,847</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="section-spacing bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Why Local Businesses Choose Us</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Drive real results with marketing that works for your neighborhood</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="bg-gradient-to-br from-purple-100 to-indigo-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-bullseye text-purple-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Hyper-Local Precision</h3>
+                    <p class="text-gray-600">Reach only the customers within your service area—no wasted budget on irrelevant audiences.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-gradient-to-br from-blue-100 to-cyan-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-chart-line text-blue-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Higher Engagement</h3>
+                    <p class="text-gray-600">Multi-channel approach increases engagement by 247% compared to single-channel campaigns.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-gradient-to-br from-green-100 to-emerald-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-dollar-sign text-green-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Cost-Efficient</h3>
+                    <p class="text-gray-600">Save 60% on marketing costs by targeting only customers who can actually visit your business.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-gradient-to-br from-pink-100 to-rose-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-magic text-pink-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Easy Automation</h3>
+                    <p class="text-gray-600">Set up once and let AI handle the rest—smart campaigns that run on autopilot.</p>
+                </div>
+            </div>
+            
+            <!-- Additional Benefits -->
+            <div class="mt-16 grid md:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-8 border border-purple-100">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-purple-600 rounded-lg p-3">
+                            <i class="fas fa-clock text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Save Time</h3>
+                    </div>
+                    <p class="text-gray-600">Automate your entire marketing workflow and reclaim 15+ hours per week.</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border border-blue-100">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-blue-600 rounded-lg p-3">
+                            <i class="fas fa-users text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Build Loyalty</h3>
+                    </div>
+                    <p class="text-gray-600">Consistent touchpoints turn first-time visitors into loyal neighborhood customers.</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-green-600 rounded-lg p-3">
+                            <i class="fas fa-trophy text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Outperform Competitors</h3>
+                    </div>
+                    <p class="text-gray-600">Dominate local search and become the go-to business in your neighborhood.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section-spacing bg-gradient-to-br from-purple-600 to-indigo-700 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">What Our Clients Say</h2>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto">Real results from real local businesses</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        "NeighborhoodMarketing.ai helped us reach 5x more local customers in just 3 months. Our foot traffic increased by 180%!"
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&q=80" alt="Customer" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <div class="font-bold">Michael Chen</div>
+                            <div class="text-sm opacity-80">Owner, Local Coffee Shop</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        "The automated SMS campaigns alone brought in $50K in new revenue. This platform is a game-changer for local businesses."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&q=80" alt="Customer" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <div class="font-bold">Sarah Martinez</div>
+                            <div class="text-sm opacity-80">Manager, Fitness Studio</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        "Finally, marketing that actually works for my neighborhood. Easy to use, incredible results, and the ROI speaks for itself."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="Customer" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <div class="font-bold">David Thompson</div>
+                            <div class="text-sm opacity-80">Owner, Auto Repair Shop</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats -->
+            <div class="mt-16 grid md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-5xl font-bold mb-2">150+</div>
+                    <div class="text-lg opacity-90">Active Businesses</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2">2.5M+</div>
+                    <div class="text-lg opacity-90">Messages Delivered</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2">247%</div>
+                    <div class="text-lg opacity-90">Avg. Engagement Increase</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2">98%</div>
+                    <div class="text-lg opacity-90">Client Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-spacing bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Start Growing Your Neighborhood Presence Today
+            </h2>
+            <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+                Join 150+ local businesses already dominating their neighborhoods with automated, multi-channel marketing.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                <button class="btn-primary text-white px-10 py-4 rounded-xl font-semibold text-lg shadow-lg">
+                    <i class="fas fa-rocket mr-2"></i>Get Started Now
+                </button>
+                <button class="btn-secondary px-10 py-4 rounded-xl font-semibold text-lg bg-white">
+                    <i class="fas fa-calendar-check mr-2"></i>Schedule a Demo
+                </button>
+            </div>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6 text-gray-600">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-check-circle text-green-600"></i>
+                    <span>No credit card required</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-check-circle text-green-600"></i>
+                    <span>14-day free trial</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-check-circle text-green-600"></i>
+                    <span>Cancel anytime</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-spacing bg-gradient-to-br from-gray-50 to-purple-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Get in Touch</h2>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Have questions? Our team is here to help you dominate your local market.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-purple-600 rounded-lg p-3 mt-1">
+                                <i class="fas fa-phone text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Phone</h4>
+                                <p class="text-gray-600">1-800-NEIGHBOR</p>
+                                <p class="text-sm text-gray-500">Mon-Fri 9am-6pm EST</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="bg-purple-600 rounded-lg p-3 mt-1">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Email</h4>
+                                <p class="text-gray-600">hello@neighborhoodmarketing.ai</p>
+                                <p class="text-sm text-gray-500">We'll respond within 24 hours</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="bg-purple-600 rounded-lg p-3 mt-1">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Office</h4>
+                                <p class="text-gray-600">123 Marketing Street, Suite 100</p>
+                                <p class="text-gray-600">San Francisco, CA 94102</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-bold text-gray-900 mb-4">Follow Us</h4>
+                        <div class="flex gap-4">
+                            <a href="#" class="bg-purple-600 hover:bg-purple-700 text-white w-12 h-12 rounded-lg flex items-center justify-center transition">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="bg-purple-600 hover:bg-purple-700 text-white w-12 h-12 rounded-lg flex items-center justify-center transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="bg-purple-600 hover:bg-purple-700 text-white w-12 h-12 rounded-lg flex items-center justify-center transition">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="bg-purple-600 hover:bg-purple-700 text-white w-12 h-12 rounded-lg flex items-center justify-center transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-2xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Send us a message</h3>
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none transition" placeholder="John">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none transition" placeholder="Doe">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none transition" placeholder="john@example.com">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                            <input type="tel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none transition" placeholder="(555) 123-4567">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Business Type</label>
+                            <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none transition">
+                                <option>Select your business type</option>
+                                <option>Restaurant</option>
+                                <option>Retail Store</option>
+                                <option>Fitness/Gym</option>
+                                <option>Salon/Spa</option>
+                                <option>Professional Services</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none transition" placeholder="Tell us about your marketing goals..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full btn-primary text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                <!-- Company Info -->
+                <div class="lg:col-span-2">
+                    <img src="https://i.postimg.cc/JnBqV6tJ/logo6-1g-removebg-preview.png" alt="NeighborhoodMarketing.ai" class="h-12 mb-4 brightness-0 invert">
+                    <p class="text-gray-400 mb-6 max-w-md">
+                        Empowering local businesses to dominate their neighborhoods through precision-targeted, multi-channel marketing automation.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="bg-gray-800 hover:bg-purple-600 text-white w-10 h-10 rounded-lg flex items-center justify-center transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="bg-gray-800 hover:bg-purple-600 text-white w-10 h-10 rounded-lg flex items-center justify-center transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="bg-gray-800 hover:bg-purple-600 text-white w-10 h-10 rounded-lg flex items-center justify-center transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="bg-gray-800 hover:bg-purple-600 text-white w-10 h-10 rounded-lg flex items-center justify-center transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Product -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Product</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition">Features</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Case Studies</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Integration</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Updates</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Company -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Press</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Resources</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">API Reference</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Community</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-gray-400 text-sm">
+                        © 2026 NeighborhoodMarketing.ai. All rights reserved developed by Zannatul.
+                    </p>
+                    <div class="flex gap-6 text-sm">
+                        <a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" class="fixed bottom-8 right-8 bg-purple-600 hover:bg-purple-700 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition opacity-0 pointer-events-none">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 50) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
